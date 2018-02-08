@@ -74,7 +74,7 @@ public class UpdatePlugServlet extends HttpServlet {
 //			out.close();
 
 			response.addHeader("version", shotVer);
-			InputStream inStream = new FileInputStream(new File(getServletContext().getRealPath("files"),prefix+shotVer));
+			InputStream inStream = new FileInputStream(new File(getServletContext().getRealPath("files"),shotVer));
 
             OutputStream outStream = response.getOutputStream();
             response.setHeader("version", shotVer);
