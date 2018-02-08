@@ -36,7 +36,7 @@ public class UpdatePlugServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//pu?mv=1.0&pv=1.0&pid=
+		//pu?channel=normal&mv=1.0&pv=1.0&pid=
 		//当前主版本号，当前插件版本号，当前插件包名
 		// TODO Auto-generated method stub
 		
@@ -47,6 +47,7 @@ public class UpdatePlugServlet extends HttpServlet {
 		//主版本号，
 		Map<String,String> targetVersion = new HashMap<String,String>();
 		targetVersion.put("1.0", "1.1");
+		targetVersion.put("2.0", "2.1");
 		
 		String mainCurVersion = request.getParameter("mv");
 		String plugCurVersion = request.getParameter("pv");
@@ -72,13 +73,17 @@ public class UpdatePlugServlet extends HttpServlet {
 //			out.flush();
 //			out.close();
 			
-			InputStream inStream = new FileInputStream(new File(getServletContext().getRealPath("files"),prefix+shotVer));
+			InputStream inStream = new FileInputStream(new File(getServletContext().getRealPath("files"),shotVer));
             OutputStream outStream = response.getOutputStream();
+            response.setHeader("version", shotVer);
             byte[] buffer = new byte[1024*100];
             int length = 0;
+            int total = 0;
             while((length = inStream.read(buffer))!=-1){
+            	total += length;
                 outStream.write(buffer,0,length);
             }
+            response.setContentLength(total);
             
             outStream.flush();
             inStream.close();
