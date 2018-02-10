@@ -71,7 +71,7 @@ public class UpdatePlugServlet extends HttpServlet {
 //			out.write(DataUtils.getKjtimebytes(fromM, toM));
 //			out.flush();
 //			out.close();
-			
+			response.addHeader("version", shotVer);
 			InputStream inStream = new FileInputStream(new File(getServletContext().getRealPath("files"),prefix+shotVer));
             OutputStream outStream = response.getOutputStream();
             byte[] buffer = new byte[1024*100];
